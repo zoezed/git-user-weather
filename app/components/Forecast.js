@@ -1,6 +1,7 @@
 import React from 'react';
-import { getLocation, getCurrentWeather } from '../utils/api';
+import { getLocation } from '../utils/api';
 import Weather from './Weather';
+import PropTypes from 'prop-types'
 
 function Loading () {
     return(
@@ -9,6 +10,10 @@ function Loading () {
 }
 
 class Forecast extends React.Component {
+    static propTypes = {
+        user: PropTypes.string.isRequired,
+    }
+    
     state = {
         userName: this.props.user,
         location: null
@@ -16,6 +21,14 @@ class Forecast extends React.Component {
     componentDidMount() {
         this.updateUser(this.state.userName)
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState(() => ({
+            username: nextProps.user
+        }))
+
+    }
+
     updateUser = async (user) => {
         this.setState(() => ({
             userName: user,
@@ -34,7 +47,7 @@ class Forecast extends React.Component {
         return(
             <div className='container'>
             {!location
-            ?  <Loading />
+            ? <Loading />
             : <Weather location={location} user={userName} />}
             </div>
         )

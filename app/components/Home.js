@@ -1,12 +1,5 @@
 import React from 'react';
-import { getLocation, getCurrentWeather } from '../utils/api';
 import Forecast from './Forecast';
-
-function Loading () {
-    return(
-        <div>Loading</div>
-    )
-}
 
 class Home extends React.Component {
     state = {
@@ -16,31 +9,31 @@ class Home extends React.Component {
    
     handleChange = (event) => {
         const value = event.target.value;
-        this.setState(() =>  ({ username: value }))
+        this.setState(() =>  ({ username: value, submitted: false }))
     }
 
     handleSubmit = (event) => {
-        event.preventDefault();
-
-       console.log(this.state.username)
-       this.setState(() => ({ submitted: true}))
+        event.preventDefault(); 
+        console.log(this.state.username)        
+        this.setState(() => ({ submitted: true }))
        
     }
 
     renderForecast() {
         return(
-            <Forecast user={this.state.username} />
+            <div>
+                <Forecast user={this.state.username} />           
+            </div>
         )
     }
 
     render() {
         const { username } = this.state
-        const { label } = this.props
-        
+    
         return(
             <div className='container'>
-                <form onSubmit={this.handleSubmit}>
-                    <label htmlFor='username'>{label}</label>
+            Enter a GitHub username and find out the weather for user location.
+                <form className='column' onSubmit={this.handleSubmit}>
                     <input 
                         id='username'
                         placeholder='github user'

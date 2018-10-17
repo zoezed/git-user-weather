@@ -1,7 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
 import { getForecast } from '../utils/api.js';
 import {DayItem} from './DayItem';
+import PropTypes from 'prop-types';
 
 function Loading() {
     return(
@@ -10,6 +10,11 @@ function Loading() {
 }
 
 class Weather extends React.Component {
+    static propTypes = {
+        location: PropTypes.object.isRequired,
+        user: PropTypes.string.isRequired
+    }
+
     state = {
         weatherOb: [],
         loading: true,
